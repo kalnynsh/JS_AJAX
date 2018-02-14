@@ -17,7 +17,7 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1% 2%;
+    padding: 2%;
 }
 
 .content {
@@ -34,7 +34,7 @@ body {
     margin: 0 auto;
     background-color: linear-gradient(to bottom, rgb(131, 184, 184), rgb(30, 41, 70));
     border: 1px solid #999;
-    padding: 0 13%;
+    padding: 0 14%;
     font: 14px sans-serif;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
