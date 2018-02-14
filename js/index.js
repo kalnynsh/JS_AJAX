@@ -1,6 +1,27 @@
 'use strict';
 
 (function () {
+
+    function ReadError(message, cause) {
+        this.message = message;
+        this.cause = cause;
+        this.name = 'ReadError';
+        this.stack = cause.stack;
+    }
+
+    function errorHandler(e) {
+        if (e.name == 'URIError') {
+            throw new ReadError('Ошибка в URI', e);
+        } else if (e.name == 'SyntaxError') {
+            throw new ReadError('Синтаксическая ошибка в данных', e);
+        } else if (e.name == 'ReadError') {
+            alert(e.message);
+            alert(e.cause);
+        } else {
+            throw e;
+        }
+    }
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', './json/gallery.json', true);
     xhr.addEventListener('readystatechange', createGallery);
@@ -36,28 +57,7 @@
         });
 
         var gallery = new Gallery('div', 'gallery__item', '', galleryArray).render();
-        document.querySelector('section.gallery').appendChild(gallery);
-
-
-        function ReadError(message, cause) {
-            this.message = message;
-            this.cause = cause;
-            this.name = 'ReadError';
-            this.stack = cause.stack;
-        }
-
-        function errorHandler(e) {
-            if (e.name == 'URIError') {
-                throw new ReadError('Ошибка в URI', e);
-            } else if (e.name == 'SyntaxError') {
-                throw new ReadError('Синтаксическая ошибка в данных', e);
-            } else if (e.name == 'ReadError') {
-                alert(e.message);
-                alert(e.cause);
-            } else {
-                throw e;
-            }
-        }
+        document.querySelector('.gallery').appendChild(gallery);
 
     }
 })();
