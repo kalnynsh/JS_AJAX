@@ -1,0 +1,58 @@
+{
+    "result": "success",
+    "data": [{
+            "id": "001",
+            "src": "./img/001s.jpg",
+            "href": "./img/001.jpg",
+            "name": "Спортивный костюм женский ",
+            "sex": "female",
+            "price": "5500",
+            "isnew": false
+        },
+        {
+            "id": "002",
+            "src": "./img/002s.jpg",
+            "href": "./img/002.jpg",
+            "name": "Платье женское",
+            "sex": "female",
+            "price": "7500",
+            "isnew": true
+        },
+        {
+            "id": "003",
+            "src": "./img/003s.jpg",
+            "href": "./img/003.jpg",
+            "name": "Платье женское",
+            "sex": "female",
+            "price": "6100",
+            "isnew": true
+        },
+        {
+            "id": "004",
+            "src": "./img/004s.jpg",
+            "href": "./img/004.jpg",
+            "name": "Куртка мужская",
+            "sex": "male",
+            "price": "5900",
+            "isnew": true
+        },
+        {
+            "id": "005",
+            "src": "./img/005s.jpg",
+            "href": "./img/005.jpg",
+            "name": "Куртка мужская",
+            "sex": "male",
+            "price": "5750",
+            "isnew": false
+        },
+        {
+            "id": "006",
+            "src": "./img/006s.jpg",
+            "href": "./img/006.jpg",
+            "name": "Куртка мужская",
+            "sex": "male",
+            "price": "6450",
+            "isnew": false
+        }
+    ]
+}
