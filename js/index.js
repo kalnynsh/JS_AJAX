@@ -1,37 +1,63 @@
 "use strict";
 
-/**
- * Container constructor for Base elements
- * @param {String} containerElem 
- * @param {String} containerClassName
- * @param {String} containerId
- */
-function Container(containerElem, containerClassName, containerId) {
+(function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', './json/gallery.json', true);
+    xhr.addEventListener('readystatechange', createGallery);
+    xhr.addEventListener('error', errorHandler);
+    xhr.send();
 
-    this.elem = containerElem || 'div';
-    if (containerId) this.id = containerId;
-    if (containerClassName) this.className = containerClassName;
-}
+    function createGallery() {
+        if (xhr.readyState !== XMLHttpRequest.DONE) { // 4
+            return;
+        }
 
-Container.prototype.render = function () {
-    var containerElem = document.createElement(this.elem);
-    if (this.id) containerElem.id = this.id;
-    if (this.className) containerElem.classList.add(this.className);
+        var results;
+        try {
+            results = JSON.parse(xhr.responseText);
+        } catch (err) {
+            errorHandler(err);
+            return;
+        }
 
-    return containerElem;
-};
+        if (xhr.status < 200 && xhr.status >= 400) {
+            errorHandler(xhr.statusText);
+        } else if (results.result !== 'success') {
+            errorHandler(results);
+        }
 
-Container.prototype.remove = function () {
-    var elem;
-    if (this.id) {
-        elem = document.getElementById(this.id);
-        elem.ParentNode.removeChild(elem);
-        return true;
-    } else if (this.className) {
-        elem = document.querySelector("." + this.className);
-        elem.ParentNode.removeChild(elem);
-        return true;
+        var galleryArray = [];
+        results.data.forEach(function (item) {
+            if ('result' in item) {
+                return;
+            }
+            galleryArray.push(new GalleryItem(
+                'a', 'img__item', 'clothes', item.href, item.src, (item.name + item.price + ' р.')).render());
+        });
+
+        var gallery = new Gallery('div', 'gallery__item', '', galleryArray).render();
+        document.querySelector("section.gallery").appendChild(gallery);
+
+
+        function ReadError(message, cause) {
+            this.message = message;
+            this.cause = cause;
+            this.name = 'ReadError';
+            this.stack = cause.stack;
+        }
+
+        function errorHandler(e) {
+            if (e.name == 'URIError') {
+                throw new ReadError("Ошибка в URI", e);
+            } else if (e.name == 'SyntaxError') {
+                throw new ReadError("Синтаксическая ошибка в данных", e);
+            } else if (e.name == 'ReadError') {
+                alert(e.message);
+                alert(e.cause);
+            } else {
+                throw e;
+            }
+        }
+
     }
-    console.log('For remove element must have id or class name');
-    return false;
-};
+})();
