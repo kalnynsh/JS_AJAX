@@ -36,7 +36,7 @@
         });
 
         var gallery = new Gallery('div', 'gallery__item', '', galleryArray).render();
-        document.querySelector("section.gallery").appendChild(gallery);
+        document.querySelector('section.gallery').appendChild(gallery);
 
 
         function ReadError(message, cause) {
@@ -48,9 +48,9 @@
 
         function errorHandler(e) {
             if (e.name == 'URIError') {
-                throw new ReadError("Ошибка в URI", e);
+                throw new ReadError('Ошибка в URI', e);
             } else if (e.name == 'SyntaxError') {
-                throw new ReadError("Синтаксическая ошибка в данных", e);
+                throw new ReadError('Синтаксическая ошибка в данных', e);
             } else if (e.name == 'ReadError') {
                 alert(e.message);
                 alert(e.cause);
