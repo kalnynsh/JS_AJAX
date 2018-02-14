@@ -1,9 +1,9 @@
 "use strict";
 /**
  * Container constructor for Base elements
- * @param {String} containerElem 
- * @param {String} containerClassName
- * @param {String} containerId
+ * @param {String} containerElem name of HTML Element
+ * @param {String} containerClassName Class Name of HTML Element
+ * @param {String} containerId Id of HTML Element
  */
 function Container(containerElem, containerClassName, containerId) {
 
@@ -35,27 +35,74 @@ Container.prototype.remove = function () {
     return false;
 };
 
-function Gallery(itemElem, itemClass, itemData, itemHref, itemHrefLabel) {
-    Container.call(this, itemElem, itemClass);
+/**
+ * Constructor for Gallery elements
+ * @param {String} itemElem name of HTML Element
+ * @param {String} itemClass Class Name of HTML Element
+ * @param {String} galleryId ID of HTML Element
+ * @param {any} galleryItems Objects collection of Gallery Items
+ */
+function Gallery(galleryElem, galleryClass, galleryId, galleryItems) {
+    Container.call(this, galleryElem, galleryClass, galleryId);
 
-    this.data = itemData || 'image-item'; // data-item = itemData || 'image-item'
-    this.href = itemHref || '#';
-    this.label = itemHrefLabel || '';
+    this.items = galleryItems;
 }
 
 Gallery.prototype = Object.create(Container.prototype);
 Gallery.prototype.constructor = Gallery;
 
 Gallery.prototype.render = function () {
-    var elem = document.createElement(this.elem);
+    var elemName = this.elem || 'div';
+    var elem = document.createElement(elemName);
+
+    if (this.className) elem.classList.add(this.className);
+    if (this.id) elem.id = this.id;
+
+    for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i] instanceof GalleryItem) {
+            elem.appendChild(this.items[i].render());
+        }
+    }
+
+    return elem;
+};
+/**
+ * GalleryItem constructor
+ * 
+ * @param {String} itemElem name of HTML Element
+ * @param {String} itemClass Class Name of HTML Element
+ * @param {String} itemData Data name in HTML Element
+ * @param {any} itemHref Link in HTML Element
+ * @param {any} itemHrefLabel Label of link
+ */
+function GalleryItem(itemElem, itemClass, itemData, itemHref, itemSrc, itemName) {
+    Container.call(this, itemElem, itemClass);
+
+    this.data = itemData || 'menu-item'; // data-item = itemData || 'menu-item'
+    this.href = itemHref || '#';
+    this.src = itemSrc;
+    this.text = itemName;
+}
+
+GalleryItem.prototype = Object.create(Container.prototype);
+GalleryItem.prototype.constructor = GalleryItem;
+
+GalleryItem.prototype.render = function () {
+    var elemName = this.elem || 'a';
+    var elem = document.createElement(elemName); // 'a'
     elem.classList.add(this.className);
-    elem.dataset.item = this.data || '';
+    elem.dataset.item = this.data || 'image-item';
+    elem.href = this.href;
 
-    var a = document.createElement('a');
-    a.href = this.href;
-    a.textContent = this.label;
+    var img = document.createElement('img');
+    img.src = this.src;
+    img.alt = this.text;
 
-    elem.appendChild(a);
+    elem.appendChild(img);
+
+    var div = document.createElement('div');
+    div.textContent = this.text;
+    elem.appendChild(div);
 
     return elem;
 };
