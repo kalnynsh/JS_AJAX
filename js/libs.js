@@ -96,7 +96,7 @@ GalleryItem.prototype.render = function () {
 
     var img = document.createElement('img');
     img.src = this.src;
-    img.alt = this.text;
+    img.alt = 'image';
 
     elem.appendChild(img);
 
