@@ -61,3 +61,12 @@ body {
     background-color: #006cc9;
     color: #eaeaea;
 }
+
+.gallery__item {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.product-img {
+    margin: 15px;
+}
