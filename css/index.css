@@ -68,5 +68,6 @@ body {
 }
 
 .product-img {
-    margin: 15px;
+    flex: 1 1 auto;
+    margin: 20px 30px;
 }
