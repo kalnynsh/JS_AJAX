@@ -36,37 +36,6 @@ Container.prototype.remove = function () {
 };
 
 /**
- * Constructor for Gallery elements
- * @param {String} itemElem name of HTML Element
- * @param {String} itemClass Class Name of HTML Element
- * @param {String} galleryId ID of HTML Element
- * @param {any} galleryItems Objects collection of Gallery Items
- */
-function Gallery(galleryElem, galleryClass, galleryId, galleryItems) {
-    Container.call(this, galleryElem, galleryClass, galleryId);
-
-    this.items = galleryItems;
-}
-
-Gallery.prototype = Object.create(Container.prototype);
-Gallery.prototype.constructor = Gallery;
-
-Gallery.prototype.render = function () {
-    var elemName = this.elem || 'div';
-    var elem = document.createElement(elemName);
-
-    if (this.className) elem.classList.add(this.className);
-    if (this.id) elem.id = this.id;
-
-    for (var i = 0; i < this.items.length; i++) {
-        if (this.items[i] instanceof GalleryItem) {
-            elem.appendChild(this.items[i].render());
-        }
-    }
-
-    return elem;
-};
-/**
  * GalleryItem constructor
  * 
  * @param {String} itemElem name of HTML Element
@@ -104,6 +73,38 @@ GalleryItem.prototype.render = function () {
     var div = document.createElement('div');
     div.textContent = this.text;
     elem.appendChild(div);
+
+    return elem;
+};
+
+/**
+ * Constructor for Gallery element
+ * @param {String} itemElem name of HTML Element
+ * @param {String} itemClass Class Name of HTML Element
+ * @param {String} galleryId ID of HTML Element
+ * @param {any} galleryItems Objects collection of Gallery Items
+ */
+function Gallery(galleryElem, galleryClass, galleryId, galleryItems) {
+    Container.call(this, galleryElem, galleryClass, galleryId);
+
+    this.items = galleryItems;
+}
+
+Gallery.prototype = Object.create(Container.prototype);
+Gallery.prototype.constructor = Gallery;
+
+Gallery.prototype.render = function () {
+    var elemName = this.elem || 'div';
+    var elem = document.createElement(elemName);
+
+    if (this.className) elem.classList.add(this.className);
+    if (this.id) elem.id = this.id;
+
+    for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i] instanceof GalleryItem) {
+            elem.appendChild(this.items[i].render());
+        }
+    }
 
     return elem;
 };
