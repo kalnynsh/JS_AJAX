@@ -53,11 +53,14 @@
                 return;
             }
             galleryArray.push(new GalleryItem(
-                'a', 'img__item', item.id, item.href, item.src, (item.name + ' ' + item.price + ' р.')).render());
+                'a', 'img__item', item.id, item.href, item.src, (item.name + ' ' + item.price + ' р.')));
         });
 
-        var gallery = new Gallery('div', 'gallery__item', '', galleryArray).render();
-        document.querySelector('.gallery').appendChild(gallery);
 
+        var gallery = new Gallery('div', 'gallery__item', '', galleryArray).render();
+        var galleryParent = document.querySelector('.gallery');
+        galleryParent.appendChild(gallery);
+
+        return galleryParent;
     }
 })();
