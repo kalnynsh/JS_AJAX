@@ -24,11 +24,11 @@ Container.prototype.remove = function () {
     var elem;
     if (this.id) {
         elem = document.getElementById(this.id);
-        elem.ParentNode.removeChild(elem);
+        elem.parentNode.removeChild(elem);
         return true;
     } else if (this.className) {
         elem = document.querySelector("." + this.className);
-        elem.ParentNode.removeChild(elem);
+        elem.parentNode.removeChild(elem);
         return true;
     }
     console.log('For remove element must have id or class name');
@@ -72,13 +72,14 @@ Gallery.prototype.render = function () {
  * @param {String} itemElem name of HTML Element
  * @param {String} itemClass Class Name of HTML Element
  * @param {String} itemData Data name in HTML Element
- * @param {any} itemHref Link in HTML Element
- * @param {any} itemHrefLabel Label of link
+ * @param {String} itemHref Link in HTML Element
+ * @param {String} itemSrc Src of img
+ * @param {String} itemName Name of img
  */
 function GalleryItem(itemElem, itemClass, itemData, itemHref, itemSrc, itemName) {
     Container.call(this, itemElem, itemClass);
 
-    this.data = itemData || 'menu-item'; // data-item = itemData || 'menu-item'
+    this.data = itemData || 'gallery-item'; // data-item = itemData || 'gallery-item'
     this.href = itemHref || '#';
     this.src = itemSrc;
     this.text = itemName;
