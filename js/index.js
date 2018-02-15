@@ -53,7 +53,7 @@
                 return;
             }
             galleryArray.push(new GalleryItem(
-                'a', 'img__item', item.id, item.href, item.src, (item.name + ' ' + item.price + ' р.')));
+                'a', 'product-img', item.id, item.href, item.src, (item.name + ' ' + item.price + ' р.')));
         });
 
 
